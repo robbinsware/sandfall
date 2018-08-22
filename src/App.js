@@ -10,7 +10,7 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to Sandfall</h1>
         </header>
-        <p className="App-intro">sandfall</p>
+        <p className="App-intro">this is for a test integration with Firebase</p>
       </div>
     );
   }
