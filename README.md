@@ -1,2 +1,0 @@
-# FirebaseTest
-Testing Firebase launch
