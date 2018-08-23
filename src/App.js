@@ -8,6 +8,7 @@ const todos = [
   { id: 323, title: 'do laundry', isSelected: true },
   { id: 423, title: 'pick up kids', isSelected: true },
   { id: 523, title: 'drop off kids', isSelected: true },
+  { id: 523, title: 'build ridiculous timline program', isSelected: true },
   { id: 623, title: 'build app', isSelected: true },
   { id: 723, title: 'deploy app', isSelected: true },
 ];
