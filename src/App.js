@@ -80,14 +80,14 @@ class App extends Component {
           </button>
         </div>
 
-        {/* <h2>todos:</h2>
+        <h2>todos:</h2>
         {this.state.todos &&
           this.state.todos.map(todo => (
             <div style={todoStyle} key={todo.id}>
-              <input type="checkbox" checked={todo.isSelected} onChange={e => this.handleChange(todo, e)} />
+              <input type="checkbox" checked={todo.isSelected} />
               <span style={{ marginLeft: 10 }}>{todo.title}</span>
             </div>
-          ))} */}
+          ))}
       </div>
     );
   }
