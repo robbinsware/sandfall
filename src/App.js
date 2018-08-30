@@ -21,6 +21,8 @@ class App extends Component {
 
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmitNewTodo = this.handleSubmitNewTodo.bind(this);
+    this.handleClickRemoveTodo = this.handleClickRemoveTodo.bind(this);
+    this.handleCompleteTodo = this.handleCompleteTodo.bind(this);
   }
 
   componentDidMount() {
@@ -38,15 +40,34 @@ class App extends Component {
     };
     const todos = this.state.todos;
 
-    if (this.state.todoTitle.length !== 0) {
+    if (this.state.newTodoTitle.length !== 0) {
       todos.unshift(todo);
     }
 
-    this.setState({ todos, todoTitle: '', allSelected: false });
+    this.setState({ todos, newTodoTitle: '', allSelected: false });
   }
 
   handleInputChange(e) {
     this.setState({ newTodoTitle: e.target.value });
+  }
+
+  handleClickRemoveTodo(i) {
+    const todos = this.state.todos.filter((todo, idx) => {
+      return idx !== i;
+    });
+    this.setState({ todos });
+  }
+
+  handleCompleteTodo(e, index) {
+    const todos = this.state.todos.map((todo, idx) => {
+      if (index === idx) {
+        return { id: todo.id, title: todo.title, completed: e.target.checked };
+      } else {
+        return todo;
+      }
+    });
+
+    this.setState({ todos });
   }
 
   render() {
@@ -78,14 +99,33 @@ class App extends Component {
           <button onClick={this.handleSubmitNewTodo} style={{ marginLeft: 5, display: 'inline-block' }}>
             Add
           </button>
+
+          {this.state.todos.length > 0 && (
+            <hr
+              style={{
+                width: '50%',
+                margin: '35px auto',
+                borderStyle: 'dashed'
+              }}
+            />
+          )}
         </div>
 
-        <h2>todos:</h2>
         {this.state.todos &&
-          this.state.todos.map(todo => (
-            <div style={todoStyle} key={todo.id}>
-              <input type="checkbox" checked={todo.isSelected} />
-              <span style={{ marginLeft: 10 }}>{todo.title}</span>
+          this.state.todos.map((todo, idx) => (
+            <div key={todo.id} style={todoStyle}>
+              <button onClick={() => this.handleClickRemoveTodo(idx)} style={{ float: 'right', cursor: 'pointer' }}>
+                X
+              </button>
+              <p>{todo.completed ? <del>{todo.title}</del> : <strong>{todo.title}</strong>}</p>
+              <span>Complete:</span>
+              <input
+                type="checkbox"
+                onChange={e => this.handleCompleteTodo(e, idx)}
+                checked={todo.completed}
+                value={todo.completed}
+                style={{ cursor: 'pointer', marginLeft: 8 }}
+              />
             </div>
           ))}
       </div>
