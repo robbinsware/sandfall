@@ -10,33 +10,43 @@ const todos = [
   { id: 523, title: 'drop off kids', isSelected: false },
   { id: 524, title: 'build ridiculous timeline program', isSelected: false },
   { id: 623, title: 'build app', isSelected: false },
-  { id: 723, title: 'deploy app', isSelected: false },
+  { id: 723, title: 'deploy app', isSelected: false }
 ];
 
 class App extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { todos: [] };
+    this.state = { todos: [], newTodoTitle: '', allSelected: false };
 
-    this.handleChange = this.handleChange.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleSubmitNewTodo = this.handleSubmitNewTodo.bind(this);
   }
 
   componentDidMount() {
     this.setState({ todos });
   }
 
-  handleChange(todo) {
-    const selectedTodo = this.state.todos.filter(t => t.id === todo.id);
+  handleSubmitNewTodo(e) {
+    e.preventDefault();
 
-    // from the start of the one we want to remove
-    // ...state.slice(0, index);
-    // after the deleted one, to the end
-    // ...state.slice(index + 1);
+    const todo = {
+      userId: 'browser_user',
+      id: this.state.todos.length + 1,
+      title: this.state.newTodoTitle,
+      completed: false
+    };
+    const todos = this.state.todos;
 
-    // const newTodos = [];
+    if (this.state.todoTitle.length !== 0) {
+      todos.unshift(todo);
+    }
 
-    // this.setState({ todos: newTodos });
+    this.setState({ todos, todoTitle: '', allSelected: false });
+  }
+
+  handleInputChange(e) {
+    this.setState({ newTodoTitle: e.target.value });
   }
 
   render() {
@@ -44,7 +54,7 @@ class App extends Component {
       border: '1px dashed #7d7d7d',
       width: 200,
       margin: '10px auto',
-      padding: 15,
+      padding: 15
     };
 
     return (
@@ -53,16 +63,31 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to Sandfall</h1>
         </header>
-        <p className="App-intro">this is for a test integration with Firebase</p>
+        <div>
+          <p className="App-intro">this is for a test integration with Firebase</p>
 
-        <h2>todos:</h2>
+          <h3 style={{ marginBottom: 5 }}>Add a new todo:</h3>
+          <form onSubmit={this.handleSubmitNewTodo} style={{ display: 'inline-block' }}>
+            <input
+              type="text"
+              style={{ padding: 5 }}
+              onChange={this.handleInputChange}
+              value={this.state.newTodoTitle}
+            />
+          </form>
+          <button onClick={this.handleSubmitNewTodo} style={{ marginLeft: 5, display: 'inline-block' }}>
+            Add
+          </button>
+        </div>
+
+        {/* <h2>todos:</h2>
         {this.state.todos &&
           this.state.todos.map(todo => (
             <div style={todoStyle} key={todo.id}>
               <input type="checkbox" checked={todo.isSelected} onChange={e => this.handleChange(todo, e)} />
               <span style={{ marginLeft: 10 }}>{todo.title}</span>
             </div>
-          ))}
+          ))} */}
       </div>
     );
   }
