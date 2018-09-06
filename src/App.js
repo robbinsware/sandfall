@@ -1,17 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-
-const todos = [
-  { id: 123, title: 'get milk', isSelected: false },
-  { id: 223, title: 'get bread', isSelected: false },
-  { id: 323, title: 'do laundry', isSelected: false },
-  { id: 423, title: 'pick up kids', isSelected: false },
-  { id: 523, title: 'drop off kids', isSelected: false },
-  { id: 524, title: 'build ridiculous timeline program', isSelected: false },
-  { id: 623, title: 'build app', isSelected: false },
-  { id: 723, title: 'deploy app', isSelected: false }
-];
+import firebase from './firebase';
 
 class App extends Component {
   constructor(props) {
@@ -26,7 +16,19 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.setState({ todos });
+    const todosRef = firebase.database().ref('todos');
+
+    todosRef.on('value', snapshot => {
+      // deserializes data ?
+      const itemsObject = snapshot.val();
+
+      // reshape it a bit to make it easier to work with
+      const list = Object.keys(itemsObject).map(key => {
+        return { firebaseId: key, ...itemsObject[key] };
+      });
+
+      this.setState({ todos: list });
+    });
   }
 
   handleSubmitNewTodo(e) {
@@ -113,7 +115,7 @@ class App extends Component {
 
         {this.state.todos &&
           this.state.todos.map((todo, idx) => (
-            <div key={todo.id} style={todoStyle}>
+            <div key={todo.firebaseId} style={todoStyle}>
               <button onClick={() => this.handleClickRemoveTodo(idx)} style={{ float: 'right', cursor: 'pointer' }}>
                 X
               </button>
