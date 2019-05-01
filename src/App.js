@@ -85,7 +85,7 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to Sandfall</h1>
+          <h1 className="App-title">Welcome to Sandfall  2</h1>
         </header>
         <div>
           <p className="App-intro">this is for a test integration with Firebasing </p>
