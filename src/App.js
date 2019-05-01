@@ -20,6 +20,7 @@ class App extends Component {
 
     todosRef.on('value', snapshot => {
       // deserializes data ?
+      // check 
       const itemsObject = snapshot.val();
 
       // reshape it a bit to make it easier to work with
