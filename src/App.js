@@ -90,7 +90,7 @@ class App extends Component {
         <div>
           <p className="App-intro">this is for a test integration with Firebasing </p>
 
-          <h3 style={{ marginBottom: 5 }}>Add a new todo:</h3>
+          <h3 style={{ marginBottom: 5 }}>Add a new todo 2:</h3>
           <form onSubmit={this.handleSubmitNewTodo} style={{ display: 'inline-block' }}>
             <input
               type="text"
