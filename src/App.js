@@ -88,7 +88,7 @@ class App extends Component {
           <h1 className="App-title">Welcome to Sandfall  2</h1>
         </header>
         <div>
-          <p className="App-intro">Hello world. This is for a test integration with Firebasing </p>
+          <p className="App-intro">Hello world 2. This is for a test integration with Firebasing </p>
 
           <h3 style={{ marginBottom: 5 }}>Add a new todo 2:</h3>
           <form onSubmit={this.handleSubmitNewTodo} style={{ display: 'inline-block' }}>
